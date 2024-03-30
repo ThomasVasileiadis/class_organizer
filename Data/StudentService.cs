@@ -5,7 +5,7 @@ namespace class_organizer.Data
 {
     public class StudentService
     {
-        public string connectionString = "Data Source=(LocalDb)\\MSSQLLocalDB;AttachDbFilename=\\Database1.mdf;Integrated Security=False";
+        public string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=Database.mdf;Integrated Security=True";
 
         [HttpPost]
         public void Create(string student_name, string student_lastname, string student_email, int student_phone, string student_obligation, string student_level)
