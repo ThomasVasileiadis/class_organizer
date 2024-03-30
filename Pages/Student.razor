@@ -1,0 +1,46 @@
+﻿@page "/student"
+@using class_organizer.Data;
+@using System.Net.Http.Json
+@inject HttpClient httpClient
+@inject IDialogService DialogService
+
+<PageTitle>Student</PageTitle>
+
+
+<MudButton Class="mb-5" Variant="Variant.Filled" Color="Color.Primary" OnClick="ShowCreateStudentModal">Create Student</MudButton>
+
+
+<MudTable Items="@StudentData" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info" Elevation="7">
+    <HeaderContent>
+        <MudTh>ID</MudTh>
+        <MudTh>Name</MudTh>
+        <MudTh>Lastname</MudTh>
+        <MudTh>E-mail</MudTh>
+        <MudTh>Phone</MudTh>
+        <MudTh>Obligation</MudTh>
+        <MudTh>Level</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="ID">@context.student_id</MudTd>
+        <MudTd DataLabel="Name">@context.student_name</MudTd>
+        <MudTd DataLabel="Lastname">@context.student_lastname</MudTd>
+        <MudTd DataLabel="E-mail">@context.student_email</MudTd>
+        <MudTd DataLabel="Phone">@context.student_phone</MudTd>
+        <MudTd DataLabel="Obligation">@context.student_obligation</MudTd>
+        <MudTd DataLabel="Lvel">@context.student_level</MudTd>
+    </RowTemplate>
+</MudTable>
+
+
+@code {
+    private bool _hidePosition;
+    private bool _loading;
+
+    private IEnumerable<StudentModel> StudentData = new List<StudentModel>();
+
+    void ShowCreateStudentModal()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<StudentDialog>("Simple Dialog", options);
+    }
+}

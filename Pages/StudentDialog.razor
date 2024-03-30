@@ -1,0 +1,36 @@
+﻿@using class_organizer.Data;
+
+<MudDialog>
+    <DialogContent>
+        <MudTextField @bind-Value="Name" Label="Name" Variant="Variant.Text"></MudTextField>
+        <MudTextField @bind-Value="Lastname" Label="Lastname" Variant="Variant.Text"></MudTextField>
+        <MudTextField @bind-Value="Email" Label="E-mail" Variant="Variant.Text"></MudTextField>
+        <MudTextField @bind-Value="Phone" Label="Phone" Variant="Variant.Text"></MudTextField>
+        <MudTextField @bind-Value="Obligation" Label="Obligation" Variant="Variant.Text"></MudTextField>
+        <MudTextField @bind-Value="Level" Label="Level" Variant="Variant.Text"></MudTextField>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    public string? Name { get; set; }
+    public string? Lastname { get; set; }
+    public string? Email { get; set; }
+    public int? Phone { get; set; }
+    public string? Obligation { get; set; }
+    public string? Level { get; set; }
+
+    void Submit()
+    {
+        // Make a call to the student service to post the data
+
+        MudDialog.Close(DialogResult.Ok(true));
+    }
+
+    void Cancel() => MudDialog.Cancel();
+}
