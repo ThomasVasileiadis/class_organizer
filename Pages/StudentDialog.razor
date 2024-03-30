@@ -21,13 +21,15 @@
     public string? Name { get; set; }
     public string? Lastname { get; set; }
     public string? Email { get; set; }
-    public int? Phone { get; set; }
+    public int Phone { get; set; }
     public string? Obligation { get; set; }
     public string? Level { get; set; }
 
     void Submit()
     {
         // Make a call to the student service to post the data
+        StudentService studentService = new StudentService();
+        studentService.Create(Name, Lastname, Email, Phone, Obligation, Level);
 
         MudDialog.Close(DialogResult.Ok(true));
     }
