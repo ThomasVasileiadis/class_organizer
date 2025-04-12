@@ -1,8 +1,6 @@
-csharp
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using class_organizer.Data;
 
 namespace class_organizer.Data
 {
@@ -23,7 +21,10 @@ namespace class_organizer.Data
         {
             var schedule = new List<ScheduleModel>();
             var timeSlots = GetTimeSlots();
-            var daysOfWeek = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Where(d => d != DayOfWeek.Saturday && d != DayOfWeek.Sunday).ToList();
+            var daysOfWeek = Enum.GetValues(typeof(DayOfWeek))
+                .Cast<DayOfWeek>()
+                .Where(d => d != DayOfWeek.Saturday && d != DayOfWeek.Sunday)
+                .ToList();
 
             var classes = _classService.GetClasses();
             var teachers = _teacherService.GetTeachers();
@@ -40,12 +41,16 @@ namespace class_organizer.Data
                     }
 
                     var currentClass = classes[classIndex];
-                    var availableTeachers = teachers.Where(t => t.CanTeachClass(currentClass.Name) && !IsTeacherBooked(schedule, day, timeSlot, t.Id)).ToList();
+                    var availableTeachers = teachers
+                        .Where(t => t.CanTeachClass(currentClass.Name) && !IsTeacherBooked(schedule, day, timeSlot, t.Id))
+                        .ToList();
 
                     if (availableTeachers.Any())
                     {
                         var teacher = availableTeachers.First(); // Simple strategy: pick the first available teacher
-                        var enrolledStudents = students.Where(s => s.ClassId == currentClass.Id && !IsStudentBooked(schedule, day, timeSlot, s.Id)).ToList();
+                        var enrolledStudents = students
+                            .Where(s => s.ClassId == currentClass.Id && !IsStudentBooked(schedule, day, timeSlot, s.Id))
+                            .ToList();
 
                         if (enrolledStudents.Any())
                         {
@@ -53,8 +58,8 @@ namespace class_organizer.Data
                             {
                                 Class = currentClass,
                                 Teacher = teacher,
-                                StartTime = timeSlot.startTime.ToDateTime(DateTime.Today.AddDays(((int)day - (int)DateTime.Today.DayOfWeek + 7) % 7)),
-                                EndTime = timeSlot.endTime.ToDateTime(DateTime.Today.AddDays(((int)day - (int)DateTime.Today.DayOfWeek + 7) % 7)),
+                                StartTime = DateTime.Today.Add(timeSlot.startTime.ToTimeSpan()),
+                                EndTime = DateTime.Today.Add(timeSlot.endTime.ToTimeSpan()),
                                 Students = enrolledStudents
                             });
                         }
@@ -101,28 +106,6 @@ namespace class_organizer.Data
                 (new TimeOnly(15, 0), new TimeOnly(16, 0)),
                 (new TimeOnly(16, 0), new TimeOnly(17, 0))
             };
-    }
-}
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
-
-        return schedule;
     }
 }

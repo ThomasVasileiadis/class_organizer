@@ -2,9 +2,9 @@ namespace class_organizer.Data
 {
     public class ScheduleModel
     {
-        public ClassModel Class { get; set; }
-        public TeacherModel Teacher { get; set; }
-        public StudentModel Student { get; set; }
+        public ClassModel Class { get; set; } = new();
+        public TeacherModel Teacher { get; set; } = new();
+        public List<StudentModel> Students { get; set; } = new();
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
     }

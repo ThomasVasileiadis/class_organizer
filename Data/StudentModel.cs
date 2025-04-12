@@ -10,5 +10,8 @@
         public string? student_obligation { get; set; }
         public string? student_level { get; set; }
 
+        // Add these properties
+        public int ClassId { get; set; }
+        public int Id { get; set; }
     }
 }

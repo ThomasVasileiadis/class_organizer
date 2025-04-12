@@ -33,5 +33,11 @@ namespace class_organizer.Data
                 }
             }
         }
+
+        public List<StudentModel> GetStudents()
+        {
+            // Return a list of students (mock or from a database)
+            return new List<StudentModel>();
+        }
     }
 }
