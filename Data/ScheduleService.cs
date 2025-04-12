@@ -101,21 +101,8 @@ namespace class_organizer.Data
                 (new TimeOnly(15, 0), new TimeOnly(16, 0)),
                 (new TimeOnly(16, 0), new TimeOnly(17, 0))
             };
-        }
-
-        public class Schedule
-        {
-            public List<ScheduleModel> ScheduledEvents { get; set; }
-        }
     }
-
-    public static class TimeOnlyExtensions
-    {
-        public static DateTime ToDateTime(this TimeOnly time, DateTime date)
-        {
-            return date.Date + time.ToTimeSpan();
-        }
-    }
+}
 }
 
 
