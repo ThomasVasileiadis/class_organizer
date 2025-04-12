@@ -1,0 +1,44 @@
+csharp
+@page "/schedule"
+@using class_organizer.Data
+@inject ScheduleService ScheduleService
+
+<h3>Weekly Schedule</h3>
+
+@if (schedule == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Teacher</th>
+                <th>Class</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in schedule)
+            {
+                <tr>
+                    <td>@item.StartTime.ToString("g")</td>
+                    <td>@item.EndTime.ToString("g")</td>
+                    <td>@item.Teacher?.Name</td>
+                    <td>@item.Class?.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<ScheduleModel> schedule;
+
+    protected override async Task OnInitializedAsync()
+    {
+        schedule = ScheduleService.GenerateWeeklySchedule(); 
+    }
+}
